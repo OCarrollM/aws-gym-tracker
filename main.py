@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import boto3
 from datetime import datetime
+from boto3.dynamodb.conditions import Key
 
 app = Flask(__name__)
 
@@ -48,7 +49,7 @@ def add_workout():
 @app.route('/workouts', methods=['GET'])
 def get_workout(userId):
     response = table.query(
-        KeyConditionExpression=boto3.dynamodb.conditions.Key('userId').eq(userId)
+        KeyConditionExpression=Key('userId').eq(userId)
     )
     return jsonify(response['Items']), 200
 
