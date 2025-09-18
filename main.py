@@ -46,7 +46,7 @@ def add_workout():
     return jsonify({"message": "Workout added.", "workout": item}), 201
 
 # Get workout
-@app.route('/workouts', methods=['GET'])
+@app.route('/workouts/<userId>', methods=['GET'])
 def get_workout(userId):
     response = table.query(
         KeyConditionExpression=Key('userId').eq(userId)
