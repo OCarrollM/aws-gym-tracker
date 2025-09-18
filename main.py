@@ -42,7 +42,7 @@ def add_workout():
     # }
     
     # workouts.append(workout)
-    return jsonify({"message": "Workout added.", "workout": workout}), 201
+    return jsonify({"message": "Workout added.", "workout": item}), 201
 
 # Get workout
 @app.route('/workouts', methods=['GET'])
