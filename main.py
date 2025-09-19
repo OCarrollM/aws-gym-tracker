@@ -63,7 +63,7 @@ def delete_workout(userId, workoutId):
         KeyConditionExpression=Key('userId').eq(userId))
     
     items = response['Items']
-    target_item  next((item for item in items if item['workoutId'] == workoutId), None)
+    target_item = next((item for item in items if item['workoutId'] == workoutId), None)
     
     if not target_item:
         return jsonify({"error": "Workout not found, enter a valid workout ID"}), 404
