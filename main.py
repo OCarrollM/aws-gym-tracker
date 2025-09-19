@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import boto3
 from datetime import datetime
 from boto3.dynamodb.conditions import Key
+import uuid
 
 app = Flask(__name__)
 
@@ -24,12 +25,13 @@ def add_workout():
     if not data or 'exercise' not in data or 'sets' not in data or 'reps' not in data:
         return jsonify({"error:" "You have missed an exercise, set or rep"}), 400
     
+    workout_id = str(uuid.uuid4())
     date = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
     
     item = {
         'userId': data['userId'],
         'date': date,
-        'workoutId': str(uuid.uuid4()),
+        'workoutId': workout_id,
         'exercise': data['exercise'],
         'sets': str(data['sets']),
         'reps': str(data['reps'])
@@ -55,11 +57,24 @@ def get_workout(userId):
     return jsonify(response['Items']), 200
 
 # Delete Workout
-@app.route('/workout/<userId>/<date>', methods=['DELETE'])
-def delete_workout(userId, date):
-    response = table.delete_item(
-        Key = {"userId": userId, "date": date})
-    return jsonify({"message": "Workout deleted"}), 200
+@app.route('/workout/<userId>/<workoutId>', methods=['DELETE'])
+def delete_workout(userId, workoutId):
+    response = table.query(
+        KeyConditionExpression=Key('userId').eq(userId))
+    
+    items = response['Items']
+    target_item  next((item for item in items if item['workoutId'] == workoutId), None)
+    
+    if not target_item:
+        return jsonify({"error": "Workout not found, enter a valid workout ID"}), 404
+    
+    table.delete_item(
+        Key={
+            'userId': userId,
+            'date': target_item['date']
+        }
+    )
+    return jsonify({"message": f"Workout {workoutId} deleted"}), 200
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=80, debug=True)
