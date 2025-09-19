@@ -29,6 +29,7 @@ def add_workout():
     item = {
         'userId': data['userId'],
         'date': date,
+        'workoutId': str(uuid.uuid4()),
         'exercise': data['exercise'],
         'sets': str(data['sets']),
         'reps': str(data['reps'])
@@ -52,6 +53,13 @@ def get_workout(userId):
         KeyConditionExpression=Key('userId').eq(userId)
     )
     return jsonify(response['Items']), 200
+
+# Delete Workout
+@app.route('/workout/<userId>/<date>', methods=['DELETE'])
+def delete_workout(userId, date):
+    response = table.delete_item(
+        Key = {"userId": userId, "date": date})
+    return jsonify({"message": "Workout deleted"}), 200
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=80, debug=True)
