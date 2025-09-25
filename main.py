@@ -28,18 +28,29 @@ def add_workout():
         return jsonify({"error:" "You have missed an exercise, set or rep"}), 400
     
     workout_id = str(uuid.uuid4())
-    date = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+    name = request.form["name"]
+    duration = request.form["duration"]
+    wtype = request.form["type"]
+    date = request.form["date"]
     
-    item = {
-        'userId': data['userId'],
-        'date': date,
-        'workoutId': workout_id,
-        'exercise': data['exercise'],
-        'sets': str(data['sets']),
-        'reps': str(data['reps'])
-    }
+    # item = {
+    #     'userId': data['userId'],
+    #     'date': date,
+    #     'workoutId': workout_id,
+    #     'exercise': data['exercise'],
+    #     'sets': str(data['sets']),
+    #     'reps': str(data['reps'])
+    # }
     
-    table.put_item(Item=item)
+    table.put_item(Item={
+        "workoutId": workout_id,
+        "name": name,
+        "duration": duration,
+        "type": wtype,
+        "date": date
+    })
+    
+    return redirect(url_for("index"))
     
     # workout = {
     #     "exercise": data['exercise'],
@@ -48,7 +59,7 @@ def add_workout():
     # }
     
     # workouts.append(workout)
-    return jsonify({"message": "Workout added.", "workout": item}), 201
+    # return jsonify({"message": "Workout added.", "workout": item}), 201
 
 # Get workout
 @app.route('/workouts/<userId>', methods=['GET'])
