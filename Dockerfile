@@ -22,3 +22,4 @@ CMD ["python", "main.py"]
 # docker start <id> - starts
 # docker rm <id> - deletes
 # docker rmi <name> - deletes image
+# docker commands ^
