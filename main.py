@@ -62,8 +62,8 @@ def delete_workout(userId, workoutId):
     response = table.query(
         KeyConditionExpression=Key('userId').eq(userId))
     
-    items = response['Items']
-    target_item = next((item for item in items if item['workoutId'] == workoutId), None)
+    items = response['Items'] 
+    target_item = next((item for item in items if item.get('workoutId') == workoutId), None)
     
     if not target_item:
         return jsonify({"error": "Workout not found, enter a valid workout ID"}), 404
@@ -77,4 +77,7 @@ def delete_workout(userId, workoutId):
     return jsonify({"message": f"Workout {workoutId} deleted"}), 200
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=80, debug=True)
+    app.run(host="0.0.0.0", port=8080, debug=True)
+
+
+# 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
