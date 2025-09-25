@@ -79,5 +79,3 @@ def delete_workout(userId, workoutId):
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8080, debug=True)
 
-
-# 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
