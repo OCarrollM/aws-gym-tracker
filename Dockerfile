@@ -15,3 +15,10 @@ EXPOSE 8080
 
 # Run B)
 CMD ["python", "main.py"]
+
+
+# docker ps - lists
+# docker stop <id> - stops
+# docker start <id> - starts
+# docker rm <id> - deletes
+# docker rmi <name> - deletes image
