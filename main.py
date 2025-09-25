@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template, redirect, url_for
 import boto3
 from datetime import datetime
 from boto3.dynamodb.conditions import Key
@@ -15,7 +15,9 @@ workouts = []
 # Home
 @app.route('/')
 def home():
-    return "Welcome to the Gym Tracker"
+    response = table.scan()
+    workouts = response.get("Items", [])
+    return render_template("index.html", workouts=workouts)
 
 # Add workout
 @app.route('/workout', methods=['POST'])

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Trakcer</title>
+</head>
+<body>
+    <h1>Welcome to the Gym Tracker</h1>
+
+    <h2>Add a Workout</h2>
+    <form action="/add" method="POST">
+        <label>Name: <input type="text" name="name" required></label><br>
+        <label>Duration (mins): <input type="number" name="duration" required></label><br>
+        <button type="submit">Add Workout</button>
+    </form>
+
+    <h2>Workouts</h2>
+    <ul>
+        {% for w in workouts %}
+        <li>
+            {{ w.name }} - {{ w.duration}} mins
+            <a href="/delete/{{ w.workoutId }}">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
