@@ -24,7 +24,12 @@ jobs:
             cd ~/aws-gym-tracker
             git pull origin main
             docker build -t gymtracker .
+            # Stop and remove any container using port 8080
+            docker ps -q --filter "publish=8080" | xargs -r docker stop
+            docker ps -aq --filter "publish=8080" | xargs -r docker rm
+            # Stop/remove gymtracker container if it exists
             docker stop gymtracker || true
             docker rm gymtracker || true
+            # Run new container
             docker run -d -p 8080:8080 --name gymtracker gymtracker
           EOF
