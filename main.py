@@ -9,6 +9,7 @@ app = Flask(__name__)
 # Dynamo Connection
 dynamodb = boto3.resource('dynamodb', region_name='eu-west-2') # London region
 table = dynamodb.Table('Workouts')
+cloudwatch = boto3.client('cloudwatch', region_name='eu-west-2')
 
 workouts = []
 
@@ -50,6 +51,8 @@ def add_workout():
         "date": date
     })
     
+    publish_workout_metric()
+    
     return redirect(url_for("index"))
     
     # workout = {
@@ -60,6 +63,18 @@ def add_workout():
     
     # workouts.append(workout)
     # return jsonify({"message": "Workout added.", "workout": item}), 201
+    
+def publish_workout_metric():
+    cloudwatch.put_metric_data(
+        Namespace='GymTracker',
+        MetricData=[
+            {
+                'MetricName': 'WorkoutsAdded',
+                'Value': 1,
+                'Unit': 'Count'
+            },
+        ]
+    )
 
 # Get workout
 @app.route('/workouts/<userId>', methods=['GET'])
