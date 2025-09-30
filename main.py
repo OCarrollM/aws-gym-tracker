@@ -21,7 +21,7 @@ def home():
     return render_template("index.html", workouts=workouts)
 
 # Add workout
-@app.route('/workout', methods=['POST'])
+@app.route('/add', methods=['POST'])
 def add_workout():    
     workout_id = str(uuid.uuid4())
     name = request.form["name"]
