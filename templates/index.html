@@ -37,7 +37,9 @@
         {% for w in workouts %}
         <li class="list-group-item d-flex justify-content-between align-items-center">
             <span>{{ w.date }} | {{ w.type }} | {{ w.name }} - {{ w.duration}} mins</span>
-            <a href="/delete/{{ w.workoutId }}" class="btn btn-sm btn-danger">Delete</a>
+            <form action="/delete/{{ w.workoutId }}" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
         </li>
         {% endfor %}
     </ul>

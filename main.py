@@ -30,6 +30,7 @@ def add_workout():
     date = request.form["date"]
     
     table.put_item(Item={
+        "userId": "default-user",
         "workoutId": workout_id,
         "name": name,
         "duration": duration,
@@ -62,24 +63,15 @@ def get_workout(userId):
     return jsonify(response['Items']), 200
 
 # Delete Workout
-@app.route('/workout/<userId>/<workoutId>', methods=['DELETE'])
-def delete_workout(userId, workoutId):
-    response = table.query(
-        KeyConditionExpression=Key('userId').eq(userId))
-    
-    items = response['Items'] 
-    target_item = next((item for item in items if item.get('workoutId') == workoutId), None)
-    
-    if not target_item:
-        return jsonify({"error": "Workout not found, enter a valid workout ID"}), 404
-    
+@app.route('/delete/<workoutId>', methods=['POST'])
+def delete_workout(workoutId):
     table.delete_item(
         Key={
-            'userId': userId,
-            'date': target_item['date']
+            'userId': "default-user",
+            'workoutId': workoutId
         }
     )
-    return jsonify({"message": f"Workout {workoutId} deleted"}), 200
+    return redirect(url_for("home"))
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8080, debug=True)
