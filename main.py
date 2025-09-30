@@ -63,12 +63,12 @@ def get_workout(userId):
     return jsonify(response['Items']), 200
 
 # Delete Workout
-@app.route('/delete/<workoutId>', methods=['POST'])
-def delete_workout(workoutId):
+@app.route('/delete/<workoutId>/<date>', methods=['POST'])
+def delete_workout(workoutId, date):
     table.delete_item(
         Key={
             'userId': "default-user",
-            'workoutId': workoutId
+            'date': date
         }
     )
     return redirect(url_for("home"))
