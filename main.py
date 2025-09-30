@@ -22,26 +22,12 @@ def home():
 
 # Add workout
 @app.route('/workout', methods=['POST'])
-def add_workout():
-    data = request.get_json()
-    
-    if not data or 'exercise' not in data or 'sets' not in data or 'reps' not in data:
-        return jsonify({"error:" "You have missed an exercise, set or rep"}), 400
-    
+def add_workout():    
     workout_id = str(uuid.uuid4())
     name = request.form["name"]
     duration = request.form["duration"]
     wtype = request.form["type"]
     date = request.form["date"]
-    
-    # item = {
-    #     'userId': data['userId'],
-    #     'date': date,
-    #     'workoutId': workout_id,
-    #     'exercise': data['exercise'],
-    #     'sets': str(data['sets']),
-    #     'reps': str(data['reps'])
-    # }
     
     table.put_item(Item={
         "workoutId": workout_id,
@@ -53,16 +39,7 @@ def add_workout():
     
     publish_workout_metric()
     
-    return redirect(url_for("index"))
-    
-    # workout = {
-    #     "exercise": data['exercise'],
-    #     "sets": data['sets'],
-    #     "reps": data['reps']
-    # }
-    
-    # workouts.append(workout)
-    # return jsonify({"message": "Workout added.", "workout": item}), 201
+    return redirect(url_for("home"))
     
 def publish_workout_metric():
     cloudwatch.put_metric_data(
