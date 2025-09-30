@@ -71,7 +71,20 @@ def delete_workout(workoutId, date):
             'date': date
         }
     )
+    publish_delete_metric()
     return redirect(url_for("home"))
+
+def publish_delete_metric():
+    cloudwatch.put_metric_data(
+        Namespace='GymTracker',
+        MetricData=[
+            {
+                'MetricName': 'WorkoutsDeleted',
+                'Value': 1,
+                'Unit': 'Count'
+            }
+        ]
+    )
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8080, debug=True)
