@@ -17,7 +17,7 @@ Users can log, delete, and view workouts all whilst activity is monitored on AWS
 
 ## Architecture
 
-![Architecture Diagram](/architectureDesign.png)
+![Architecture Diagram](/DiagramGitHub.png)
 
 ---
 
