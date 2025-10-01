@@ -90,3 +90,8 @@ if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8080, debug=True)
     print("Hello world")
 
+# final steps after cloudwatch
+# Readme with description, architecture diagram and how to run
+# can then move onto MVP stuff and stretch features
+
+# better frontend, summaries, accounts
