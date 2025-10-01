@@ -55,7 +55,7 @@ docker build -t gymtracker .
 docker run -p 8080:8080 gymtracker
 ```
 
-Then visit http://<localhost>:8080
+Then visit http://localhost:8080
 
 ## Author
 Morgan O'Carroll
