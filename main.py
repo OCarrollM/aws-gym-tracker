@@ -24,7 +24,17 @@ def home():
     avg_duration = round(total_duration / total_workouts, 1) if total_workouts else 0
     
     now = datetime.now()
-    workouts_this_week = sum(1 for w in workouts if "date" in w and (now - datetime.strptime(w["date"], "%Y-%m-%d")).days <= 7)
+    
+    workouts_this_week = 0
+    for w in workouts:
+        if "date" in w:
+            try:
+                w_date = datetime.strptime(w["date"], "%Y-%m-%d")
+            except ValueError:
+                w_date = datetime.strptime(w["date"], "%Y-%m-%d %H:%M:%S")
+            
+            if(now - w_date).days <= 7:
+                workouts_this_week += 1
     
     return render_template("index.html",
                            workouts=workouts,
