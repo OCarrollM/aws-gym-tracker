@@ -21,7 +21,7 @@ def home():
     
     total_workouts = len(workouts)
     total_duration = sum(int(w.get("duration", 0)) for w in workouts)
-    avg_duration = round(total_duration / total_workouts, 1) for total_workouts else 0
+    avg_duration = round(total_duration / total_workouts, 1) if total_workouts else 0
     
     now = datetime.now()
     workouts_this_week = sum(1 for w in workouts if "date" in w and (now - datetime.strptime(w["date"], "%Y-%m-%d")).days <= 7)
