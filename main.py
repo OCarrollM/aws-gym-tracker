@@ -18,7 +18,19 @@ workouts = []
 def home():
     response = table.scan()
     workouts = response.get("Items", [])
-    return render_template("index.html", workouts=workouts)
+    
+    total_workouts = len(workouts)
+    total_duration = sum(int(w.get("duration", 0)) for w in workouts)
+    avg_duration = round(total_duration / total_workouts, 1) for total_workouts else 0
+    
+    now = datetime.now()
+    workouts_this_week = sum(1 for w in workouts if "date" in w and (now - datetime.strptime(w["date"], "%Y-%m-%d")).days <= 7)
+    
+    return render_template("index.html",
+                           workouts=workouts,
+                           total_workouts = total_workouts,
+                           avg_duration = avg_duration,
+                           workouts_this_week = workouts_this_week)
 
 # Add workout
 @app.route('/add', methods=['POST'])

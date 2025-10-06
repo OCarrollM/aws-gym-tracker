@@ -30,6 +30,33 @@
     </nav>
 
     <div class="container">
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card text-center shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Workouts</h5>
+                        <h3 class="card-text">{{ total_workouts }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Avg Duration</h5>
+                        <h3 class="card-text">{{ avg_duration }} mins</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Workouts This Week</h5>
+                        <h3 class="card-text">{{ workouts_this_week }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="card shadow-sm mb-4">
             <div class="card-header bg-primary text-white">
                 <h5 class="mb-0">Add a Workout</h5>
