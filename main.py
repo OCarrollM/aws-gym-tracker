@@ -127,7 +127,7 @@ def workouts_chart_data():
         except ValueError:
             continue
         
-        if (now - w.date).days <= 7:
+        if (now - w_date).days <= 7:
             key = w_date.strftime("%Y-%m-%d")
             counts[key] = counts.get(key, 0) + 1
     
