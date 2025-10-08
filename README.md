@@ -1,21 +1,29 @@
-# HyperTrack - An AWS controlled workout tracker
+# HyperTrack 
 
-HyperTrack is a cloud based workout application built using **Flask**, **DynamoDB**, **Docker**, and importantly **AWS**.
-Users can log, delete, and view workouts all whilst activity is monitored on AWS dashboards.
+*Built for performance, scalability, and live insights*
+
+---
+
+## Overview
+**HyperTrack** is a full-stack project focusing on fitness tracking. A web application designed from the ground up to show end-to-end **DevOps with AWS**.
+
+Users can log workouts, view weekly trends and track statistics seemlessly with more features coming soon.
 
 ---
 
 ## Features
-- Add, view, and delete workouts via a web interface.
+- **Flask API Backend** hosted on Amazon EC2
 - Data logged inside **AWS DynamoDB**.
 - **AWS Cloudwatch** metrics published for every workout both added and deleted.
 - Logs tracked in Cloudwatch for easy monitoring and debugging.
-- A fully automated **CI/CD** pipeline using GitHub actions which deploys onto **EC2**.
+- A fully automated **CI/CD** pipeline using GitHub Actions.
 - Containerised on **Docker** for local development, anywhere, anytime.
+- **Interactive Frontend** built using Bootstrap
 
 ---
 
 ## Architecture
+
 
 ![Architecture Diagram](/GitHubDiagram.png)
 
@@ -29,6 +37,23 @@ Users can log, delete, and view workouts all whilst activity is monitored on AWS
 - **Hosting**: AWS EC2 (Using Docker)
 - **CI/CD**: GitHub Actions
 - **Frontend**: Bootstrap (HTML, CSS)
+
+---
+
+## Project Structure
+
+```bash
+aws-gym-tracker/
+├── .github/workflows/
+│   └── deploy.yml
+├── templates/
+│   └── index.html
+├── Dockerfile       
+├── GitHubDiagram.png  
+├── main.py 
+├── README.md
+└── requirements.txt
+```
 
 ---
 
@@ -48,14 +73,26 @@ Information for working with these can be found at their respective websites.
 git clone https://github.com/OCarrollM/aws-gym-tracker.git
 cd /aws-gym-tracker
 
+# Install Requirements
+pip install -r requirements.txt
+
 # Build Image
 docker build -t gymtracker .
 
 # Run Container
 docker run -p 8080:8080 gymtracker
+
+# Or run locally
+python3 main.py
 ```
 
 Then visit http://localhost:8080
 
 ## Author
 Morgan O'Carroll
+[LinkedIn](https://www.linkedin.com/in/morganocarroll/)
+
+---
+
+## License
+MIT License - Feel free to adapt to your own needs or educational purposes

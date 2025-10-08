@@ -145,7 +145,36 @@ if __name__ == '__main__':
 
 # Next steps
 
-# 1 - Polish front end
-# 2 - Change production, move secrects, flask server move, ACM certificate
-# 3 - Scaling with AWS
-# 4 - Polish
+# 1. Documentation & Professional Presentation
+
+# TODO Tasks:
+# Update README
+
+    #! Screenshots of the dashboard + chart !
+    #! “Architecture Overview” section (maybe make into a gif?)
+    #! Deployment flow diagram (GitHub → EC2 → Docker → CloudWatch)
+    #! Live metrics demo screenshots from CloudWatch
+    #! Add a “Tech Stack” badge section
+    #! Add a step-by-step setup guide (local run + AWS deploy)
+    #! Add a short “Why I built this” paragraph (ties back to Amazon)
+
+# 2. Polishing the Frontend (make it feel like a dashboard)
+
+    #! A summary card at the top (total workouts this week, average duration, etc.)
+    #! Filter dropdowns (e.g., show only “Cardio” or “Weights”)
+    #! A theme toggle (lmao)
+    #! A small logo or favicon
+
+# 3. Advanced DevOps 
+
+    #! Host your Docker image in ECR (Amazon Elastic Container Registry)
+    #! Deploy via ECS or Elastic Beanstalk
+    #! Add IAM best practices
+    #! Connect CloudWatch Dashboard
+
+
+# 4. Optional extras 
+
+    #! Add user accounts
+    #! Add API Gateway + Lambda backend instead of Flask 
+    #! Create custom CloudWatch alarms 
