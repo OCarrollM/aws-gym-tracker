@@ -130,7 +130,7 @@ def workouts_chart_data():
     sorted_dates = sorted(counts.keys())
     chart_data = {
         "dates": sorted_dates,
-        "values": [counts[d]] for d in sorted_dates
+        "values": [counts[d] for d in sorted_dates]
     }
     
     return jsonify(chart_data)
