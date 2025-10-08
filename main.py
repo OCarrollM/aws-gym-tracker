@@ -108,6 +108,33 @@ def publish_delete_metric():
         ]
     )
 
+# Live metrics yippeee! Arrow would never do this...
+@app.route('/api/metrics/workouts')
+def workouts_chart_data():
+    response = table.scan()
+    workouts = response.get("Items", [])
+
+    now = datetime.now()
+    counts = {}
+    
+    for w in workouts:
+        if "date" in w:
+            try:
+                w_date = datetime.strptime(w["date"].split()[0], "%Y-%m-%d")
+                if (now - w.date).days <= 7:
+                    key = w_date.strftime("%Y-%m-%d")
+                    counts[key] = counts.get(key, 0) + 1
+            except ValueError:
+                continue
+    
+    sorted_dates = sorted(counts.keys())
+    chart_data = {
+        "dates": sorted_dates,
+        "values": [counts[d]] for d in sorted_dates
+    }
+    
+    return jsonify(chart_data)
+    
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8080, debug=True)
     print("Hello world")
