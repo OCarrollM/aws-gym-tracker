@@ -118,14 +118,18 @@ def workouts_chart_data():
     counts = {}
     
     for w in workouts:
-        if "date" in w:
-            try:
-                w_date = datetime.strptime(w["date"].split()[0], "%Y-%m-%d")
-                if (now - w.date).days <= 7:
-                    key = w_date.strftime("%Y-%m-%d")
-                    counts[key] = counts.get(key, 0) + 1
-            except ValueError:
-                continue
+        w_date_str = w.get("date")
+        if not w_date_str or not isinstance(w_date_str, str):
+            continue
+
+        try:
+            w_date = datetime.strptime(w_date_str.split()[0], "%Y-%m-%d")
+        except ValueError:
+            continue
+        
+        if (now - w.date).days <= 7:
+            key = w_date.strftime("%Y-%m-%d")
+            counts[key] = counts.get(key, 0) + 1
     
     sorted_dates = sorted(counts.keys())
     chart_data = {
