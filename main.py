@@ -35,12 +35,21 @@ def home():
             
             if(now - w_date).days <= 7:
                 workouts_this_week += 1
+                
+    # Most common workout
+    type_counts = {}
+    for w in workouts:
+        wtype = w.get("type", "Unknown")
+        type_counts[wtype] = type_counts.get(wtype, 0) + 1
+        
+    most_common_type = max(type_counts, key=type_counts.get) if type_counts else "N/A"
     
     return render_template("index.html",
                            workouts=workouts,
                            total_workouts = total_workouts,
                            avg_duration = avg_duration,
-                           workouts_this_week = workouts_this_week)
+                           workouts_this_week = workouts_this_week,
+                           most_common_type = most_common_type)
 
 # Add workout
 @app.route('/add', methods=['POST'])
