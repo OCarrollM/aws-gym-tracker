@@ -4,14 +4,14 @@
 
 ---
 
-## Overview
+## 🚀 Overview
 **HyperTrack** is a full-stack project focusing on fitness tracking. A web application designed from the ground up to show end-to-end **DevOps with AWS**.
 
 Users can log workouts, view weekly trends and track statistics seemlessly with more features coming soon.
 
 ---
 
-## Features
+## ✅ Features
 - **Flask API Backend** hosted on Amazon EC2
 - Data logged inside **AWS DynamoDB**.
 - **AWS Cloudwatch** metrics published for every workout both added and deleted.
@@ -20,23 +20,44 @@ Users can log workouts, view weekly trends and track statistics seemlessly with 
 - Containerised on **Docker** for local development, anywhere, anytime.
 - **Interactive Frontend** built using Bootstrap
 
+Light Mode             |     Dark Mode
+:-------------------------:|:-------------------------:
+![Light Mode](/images/LightMode.png)  |  ![Dark Mode](/images/DarkMode.png)
+
+*Images are a work in progress*
+
 ---
 
-## Architecture
+## 🏭 Architecture
 
 
-![Architecture Diagram](/GitHubDiagram.png)
+![Architecture Diagram](/images/updatedDiagram.gif)
+
+### Deployment Flow
+
+1. **Push** to GitHub
+2. **Github Actions** starts workflow
+3. Worflow SSHs into **EC2**
+4. **Docker** image rebuilds and restarts container
+5. Logs metrics stream to **CloudWatch**
 
 ---
 
-## Stack background
+## ⚙ Stack background
 
-- **Backend**: Python (using Flask)
+- **Backend**: Python (using Flask) 
 - **Database**: AWS DynamoDB
 - **Monitoring**: AWS CloudWatch
 - **Hosting**: AWS EC2 (Using Docker)
 - **CI/CD**: GitHub Actions
 - **Frontend**: Bootstrap (HTML, CSS)
+
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![Flask](https://img.shields.io/badge/Flask-2.3-lightgrey)
+![AWS](https://img.shields.io/badge/AWS-Cloud-orange)
+![DynamoDB](https://img.shields.io/badge/DynamoDB-NoSQL-blueviolet)
+![GitHub Actions](https://img.shields.io/badge/GitHub-Actions-black)
+![Docker](https://img.shields.io/badge/Docker-Container-blue)
 
 ---
 
