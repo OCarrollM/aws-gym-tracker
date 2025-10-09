@@ -103,6 +103,15 @@
             </div>
         </div>
 
+        <div class="mb-3">
+            <select id="filterType" class="form-select w-auto">
+                <option value="all">All</option>
+                <option value="Cardio">Cardio</option>
+                <option value="Weights">Weights</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
         <div class="card shadow-sm">
             <div class="card-header bg-secondary text-white">
                 <h5 class="mb-0">Workout History</h5>
@@ -196,6 +205,16 @@
             }
         }
         document.addEventListener('DOMContentLoaded', loadWorkoutChart);
+    </script>
+
+    <script>
+        document.getElementById('filterType').addEventListener('change', function() {
+            const selected = this.value.toLowerCase();
+            document.getSelectorAll('.list-group-item').forEach(item => {
+                const type = item.getAttribute('data-type').toLowerCase();
+                item.style.display = (selected === 'all' || type === selected) ? '' : 'none';
+            });
+        });
     </script>
 </body>
 </html>
