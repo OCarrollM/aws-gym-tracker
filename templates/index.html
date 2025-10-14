@@ -128,7 +128,7 @@
                             <th class="text-end">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="workoutsBody">
                         {% for w in workouts %}
                         <tr data-type="{{ w.type }}">
                             <td>{{ w.date }}</td>
@@ -211,12 +211,15 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const filterSelector = document.getElementById("filterType");
-            const workoutItems = document.querySelectorAll("tbody");
+            const workoutItems = document.querySelectorAll("workoutsBody");
 
             filterSelector.addEventListener("change",() => {
-                const selected = filterSelector.value.trim().toLowerCase();
+                const selected = (filterSelector.value || "all").trim().toLowerCase();
                 const rows = tableBody.querySelectorAll("tr");
                 let anyVisible = false;
+
+                const existingMsg = document.getElementById("noDataMsg");
+                if (existingMsg) existingMsg.remove();
 
                 rows.forEach(row => {
                     const type = (row.getAttribute("data-type") || "").trim().toLowerCase();
@@ -229,19 +232,14 @@
                     }
                 });
 
-                let noDataMsg = document.getElementById("noDataMsg");
                 if (!anyVisible) {
-                    if (!noDataMsg) {
-                        const msg = document.createElement("tr");
-                        msg.id = "noDataMsg";
-                        msg.innerHTML = `
-                            <td colspan="5" class="text-center text-muted py-3">
-                                No workouts found
-                            </td>`;
-                        workoutItems.appendChild(noDataMsg);
-                    }
-                } else if (noDataMsg) {
-                    noDataMsg.remove();
+                    const msg = document.createElement("tr");
+                    msg.id = "noDataMsg";
+                    msg.innerHTML = `
+                        <td colspan="5" class="text-center text-muted py-3">
+                            No workouts found
+                        </td>`;
+                    workoutItems.appendChild(noDataMsg);
                 }
             });
         });
