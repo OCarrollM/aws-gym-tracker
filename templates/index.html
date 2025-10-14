@@ -104,7 +104,8 @@
         </div>
 
         <div class="mb-3">
-            <select id="filterType" class="form-select w-auto">
+            <label id="filterType" class="form-label fw-semibold">Filter By Workout Type:</label>
+            <select name="filterType" id="form-select w-auto d-inline-block">
                 <option value="all">All</option>
                 <option value="Cardio">Cardio</option>
                 <option value="Weights">Weights</option>
@@ -129,7 +130,7 @@
                     </thead>
                     <tbody>
                         {% for w in workouts %}
-                        <tr>
+                        <tr data-type="{{ w.type }}">
                             <td>{{ w.date }}</td>
                             <td>{{ w.name }}</td>
                             <td>{{ w.type }}</td>
@@ -208,11 +209,39 @@
     </script>
 
     <script>
-        document.getElementById('filterType').addEventListener('change', function() {
-            const selected = this.value.toLowerCase();
-            document.getSelectorAll('.list-group-item').forEach(item => {
-                const type = item.getAttribute('data-type').toLowerCase();
-                item.style.display = (selected === 'all' || type === selected) ? '' : 'none';
+        document.addEventListener("DOMContentLoaded", function() {
+            const filterSelector = document.getElementById("filterType");
+            const workoutItems = document.querySelectorAll("tbody tr");
+
+            filterSelector.addEventListener("change", function() {
+                const selected = this.value.toLowerCase();
+                let anyVisible = false;
+
+                workoutItems.forEach(item => {
+                    const type = (item.dataset.type || "").toLowerCase();
+
+                    if (selected === "all" || type === selected) {
+                        item.style.display = "";
+                        anyVisible = true;
+                    } else {
+                        item.style.display = "none";
+                    }
+                });
+
+                const noDataMsg = document.getElementById("noDataMsg");
+                if (!anyVisible) {
+                    if (!noDataMsg) {
+                        const msg = document.createElement("tr");
+                        msg.id = "noDataMsg";
+                        msg.innerHTML = `
+                            <td colspan="5" class="text-center text-muted py-3">
+                                No workouts found
+                            </td>`;
+                        document.querySelector("tbody").appendChild(msg);
+                    }
+                } else if (noDataMsg) {
+                    noDataMsg.remove();
+                }
             });
         });
     </script>
